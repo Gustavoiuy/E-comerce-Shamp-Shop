@@ -26,8 +26,8 @@ export const Cart = () => {
           Subtotal: <span className="font-bold text-green-600">${subtotal}</span>
         </p>
 
-        <button className="btn btn-primary btn-block mt-4" onClick={(e) => {
-          openCart();          // abre el SideCart
+        <button className="btn btn-primary btn-block mt-4" onClick={() => {
+          openCart();          
           (document.activeElement as HTMLElement)?.blur(); //  👈 cierra el dropdown
           }}>
           Ver carrito
