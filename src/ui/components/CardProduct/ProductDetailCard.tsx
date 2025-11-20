@@ -16,11 +16,7 @@ export const ProductDetailCard = ({ product }: Props) => {
 
   const handleAdd = () => openModal(product);
 
-  const handleConfirm = (product: Product, qty: number) => {
-    console.log("Producto agregado:", product, "Cantidad:", qty);
-    // Aquí puedes llamar addToCart(product, qty)
-  };
-
+  
   return (
     <>
       <section className="max-w-5xl mx-auto mt-10 grid grid-cols-3 md:grid-cols-2 gap-10">
@@ -69,7 +65,7 @@ export const ProductDetailCard = ({ product }: Props) => {
         isOpen={isOpen}
         product={pForModal}
         onClose={closeModal}
-        onConfirm={handleConfirm}
+        
       />
     </>
   );
