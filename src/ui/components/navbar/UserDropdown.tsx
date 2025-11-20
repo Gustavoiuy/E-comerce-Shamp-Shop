@@ -3,7 +3,7 @@ import { useUser } from "../../../context/userContext"
 import toast from "react-hot-toast"
 
 export const UserDropdown = () => {
-    const {setInfo}= useUser()
+    const {setInfo,userInfo}= useUser()
     const handleLogout = async ()=>{
         try {
             await LogoutFormService()
@@ -28,7 +28,7 @@ export const UserDropdown = () => {
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow">
         <li>
             <a className="justify-between" >Perfil
-                <span className="badge">Nuevo</span> </a>
+                <span className="badge">{userInfo?.username}</span> </a>
         </li>
         <li>
             <a className="justify-between" href="">Configuracion </a>

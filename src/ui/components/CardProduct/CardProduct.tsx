@@ -2,6 +2,8 @@ import { Link } from "react-router";
 import { FaShoppingCart } from "react-icons/fa";
 import type { Product } from "../../../domain/products/product";
 import { motion } from "framer-motion";
+import { AddToCartModal } from "../../modals/AddToCartModal";
+import { useAddToCartModal } from "../../../hooks/useAddToCartModal";
 
 interface Props {
   product: Product;
@@ -10,24 +12,44 @@ interface Props {
 
 export const CardProduct = ({ product }: Props) => {
   const { _id, name, price, imageUrl, description, stock } = product;
+   const { isOpen, product: pForModal, openModal, closeModal } = useAddToCartModal();
+  
+  const handleAdd = () => openModal(product);
 
+    
+
+  
   return (
     <motion.article
       whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 200, damping: 15 }}
       className="
-        bg-white rounded-2xl shadow-md p-4 border border-gray-200
+        bg-green-50 rounded-2xl shadow-md p-4 border border-gray-200
         hover:shadow-xl transition-shadow
         max-w-sm w-full flex flex-col
       "
     >
       {/* Image */}
       <div className="relative w-full h-56 overflow-hidden rounded-xl bg-gray-100">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        />
+        {/* Product Image */}
+<div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 shadow-md group">
+
+  {/* Skeleton Loader */}
+  <div className="absolute inset-0 bg-gradient-to-r" />
+
+  <img
+    src={imageUrl}
+    alt={name}
+    className="
+      w-full h-full object-cover
+      group-hover:scale-105 transform
+    "
+
+  />
+
+  
+
+</div>
 
         {/* Stock badge */}
         {stock === 0 && (
@@ -48,7 +70,7 @@ export const CardProduct = ({ product }: Props) => {
       {/* Price */}
       <span className="
         inline-block mt-3 text-lg font-bold
-        bg-gradient-to-r from-yellow-400 to-yellow-500
+         from-blue-950
         text-gray-900 px-3 py-1 rounded-lg shadow-sm
       ">
         ${price}
@@ -59,8 +81,7 @@ export const CardProduct = ({ product }: Props) => {
         <Link
           to={`/detailProduct/${_id}`}
           className="
-            flex-1 text-center bg-blue-600 text-white py-2 rounded-xl
-            hover:bg-blue-700 transition font-medium shadow-sm
+        btn btn-primary
           "
         >
           Ver detalle
@@ -68,20 +89,30 @@ export const CardProduct = ({ product }: Props) => {
 
         <button
           disabled={stock === 0}
+           onClick={handleAdd}
           className={`
             flex items-center justify-center gap-2 flex-1 py-2 rounded-xl font-medium shadow-sm
             transition
             ${
               stock === 0
                 ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                : "bg-green-600 text-white hover:bg-green-700"
+                : "btn btn-success btn-circle"
             }
           `}
         >
           <FaShoppingCart size={15} />
           {stock === 0 ? "Sin stock" : "Agregar"}
         </button>
+         
       </footer>
+       <AddToCartModal
+                isOpen={isOpen}
+                product={pForModal}
+                onClose={closeModal}
+               
+              />
     </motion.article>
   );
 };
+
+

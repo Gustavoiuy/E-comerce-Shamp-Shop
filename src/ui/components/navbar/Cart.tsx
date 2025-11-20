@@ -1,50 +1,37 @@
-// src/components/navbar/Cart.tsx
-export const Cart = () => {
-  return (
-    <div className="flex-none">
-      <div className="dropdown dropdown-end">
-        {/* Botón del carrito */}
-        <div
-          tabIndex={0}
-          role="button"
-          className="btn btn-success btn-circle"
-        >
-          <div className="indicator">
-            {/* Ícono del carrito */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
-            {/* Contador de productos */}
-            <span className="badge badge-sm indicator-item">2</span>
-          </div>
-        </div>
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "../../../store/cart.store";
+import { useUIStore } from "../../../store/ui.store";
 
-        {/* Dropdown del carrito */}
-        <div
-          tabIndex={0}
-          className="dropdown-content z-1000 mt-3 w-56 p-4 shadow-lg bg-base-100 rounded-box"
-        >
-          <div className="mb-2">
-            <span className="font-bold text-lg">2 productos</span>
-          </div>
-          <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-            Subtotal: <span className="font-semibold text-info">$999</span>
-          </div>
-          <div className="card-actions">
-            <button className="btn btn-primary btn-block">Ver carrito</button>
-          </div>
-        </div>
+export const Cart = () => {
+  const totalItems = useCartStore((s) => s.totalItems());
+  const subtotal = useCartStore((s) => s.subtotal());
+  const openCart = useUIStore((s) => s.openCart);
+
+  return (
+    <div className="dropdown dropdown-end">
+      <label tabIndex={0} className="btn btn-circle btn-accent relative cursor-pointer">
+        <ShoppingCart className="w-6 h-6" />
+
+        {totalItems > 0 && (
+          <span className="badge badge-sm absolute -right-1 -top-1 bg-primary text-white">
+            {totalItems}
+          </span>
+        )}
+      </label>
+
+      <div tabIndex={0} className="dropdown-content menu p-4 shadow-lg bg-base-100 rounded-xl w-72">
+        <span className="font-semibold text-lg">{totalItems} productos</span>
+
+        <p className="mt-2 text-base">
+          Subtotal: <span className="font-bold text-green-600">${subtotal}</span>
+        </p>
+
+        <button className="btn btn-primary btn-block mt-4" onClick={(e) => {
+          openCart();          // abre el SideCart
+          (document.activeElement as HTMLElement)?.blur(); //  👈 cierra el dropdown
+          }}>
+          Ver carrito
+        </button>
       </div>
     </div>
   );

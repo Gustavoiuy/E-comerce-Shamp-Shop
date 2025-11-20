@@ -6,8 +6,8 @@ export const Home = () => {
 
   return (
     <main className="px-4 md:px-10">
-      <h1 className="text-4xl font-bold text-center mt-8 mb-6 text-sky-800">
-        shamp | shop
+      <h1 className="text-4xl font-bold text-center mt-8 mb-6 text-sky-100">
+        Elije tu favorito!!
       </h1>
 
       {loading && (
@@ -23,16 +23,24 @@ export const Home = () => {
       )}
 
       {!loading && !error && (
-        <section
-          className="
-          grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
-          gap-6 justify-items-center mb-10
-          "
-        >
-          {products.map((p) => (
-            <CardProduct key={p._id} product={p} />
-          ))}
-        </section>
+       <div className="w-full flex justify-center">
+  <div 
+    className="
+      grid 
+      grid-cols-1 
+      sm:grid-cols-2 
+      gap-6 
+      max-w-4xl 
+      mx-auto 
+      place-items-center
+    "
+  >
+    {products.map((p) => (
+      <CardProduct key={p._id} product={p} />
+    ))}
+  </div>
+</div>
+
       )}
     </main>
   );

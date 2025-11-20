@@ -8,14 +8,19 @@ import { UserContextProvider } from "./context/userContext";
 import { ProductContextProvider } from "./context/ProductContext";
 import { Toaster } from "react-hot-toast";
 import { DetailProduct } from "./pages/DetailProduct";
+import { Footer } from "./ui/components/footer/Footer";
+
 
 export default function App() {
   return (
     <UserContextProvider>
+      
       <ProductContextProvider>
+            
+          
           <Routes>
           <Route element={<Layout/>}>
-            <Route path="/" element={<Home/>}></Route>
+            <Route path="/home" element={<Home/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
              <Route
@@ -25,7 +30,11 @@ export default function App() {
       
         
         </Routes>
+        <Footer/>
+            
+           
       </ProductContextProvider>
+      
      
     <Toaster/>
     </UserContextProvider>
