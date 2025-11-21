@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 //config database
-const API_URL = import.meta.env.VITE_BACKEND_URL +'/auth'
+const API_URL = import.meta.env.VITE_BACKEND_URL +'/api/v1/auth'
 
 //cookies include the petitions
 axios.defaults.withCredentials = true 

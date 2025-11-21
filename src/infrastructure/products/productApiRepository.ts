@@ -6,7 +6,7 @@ import type { Product } from "../../domain/products/product";
 
 axios.defaults.withCredentials = true;
 
-const API_URL = `${import.meta.env.VITE_BACKEND_URL}/products`;
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/products`;
 
 export class ProductApiRepository implements ProductRepository {
   async getAll(): Promise<Product[]> {
